@@ -22,7 +22,7 @@ const HeroBanner = () => {
     <section className="bg-[hsl(var(--hero-bg))] py-16 md:py-24">
       <div className="text-center px-6 max-w-4xl mx-auto">
         <p className="font-mono text-sm text-accent-blue mb-4 tracking-wider">
-          01 — BENCHMARK
+          01 — OVERVIEW
         </p>
 
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-tight mb-6">

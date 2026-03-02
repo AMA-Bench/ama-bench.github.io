@@ -65,6 +65,10 @@ const BenchmarkDomains = () => {
               <p className="font-mono text-4xl font-bold text-accent-blue">6</p>
               <p className="text-sm text-muted-foreground">Domains</p>
             </div>
+            <div className="text-center md:text-left">
+              <p className="font-mono text-4xl font-bold text-accent-blue">4</p>
+              <p className="text-sm text-muted-foreground">Capabilities</p>
+            </div>
           </div>
         </div>
 
