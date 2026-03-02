@@ -52,6 +52,10 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
         glow: "hsl(var(--hero-glow))",
+        "accent-blue": {
+          DEFAULT: "hsl(var(--accent-blue))",
+          light: "hsl(var(--accent-blue-light))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
