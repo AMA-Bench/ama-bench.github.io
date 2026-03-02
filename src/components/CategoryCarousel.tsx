@@ -10,34 +10,34 @@ import catSpider from "@/assets/cat-spider.jpg";
 
 const categories = [
   {
-    name: "ALFWorld-verified",
-    desc: "Watch the AI agent navigate and complete household tasks in a text-based virtual environment.",
-    image: catAlfworld,
-  },
-  {
-    name: "BALROG / Imgame Bench",
-    desc: "Evaluate AI agents playing interactive games requiring strategic decision-making and planning.",
-    image: catBalrog,
-  },
-  {
-    name: "WebArena",
+    name: "Web Task Execution",
     desc: "Test AI agents on realistic web browsing tasks across complex, real-world websites.",
     image: catWebarena,
   },
   {
-    name: "SWE-bench",
+    name: "Software Engineering",
     desc: "Challenge AI to resolve real GitHub issues from popular open-source Python repositories.",
     image: catSwebench,
   },
   {
-    name: "GAIA",
+    name: "Open World Tool QA",
     desc: "Assess multi-step reasoning with web search, document analysis, and tool use.",
     image: catGaia,
   },
   {
-    name: "Spider 2.0",
+    name: "Text 2 SQL",
     desc: "Evaluate text-to-SQL generation on complex, cross-database enterprise queries.",
     image: catSpider,
+  },
+  {
+    name: "Embodied AI",
+    desc: "Watch the AI agent navigate and complete household tasks in a text-based virtual environment.",
+    image: catAlfworld,
+  },
+  {
+    name: "Gaming",
+    desc: "Evaluate AI agents playing interactive games requiring strategic decision-making and planning.",
+    image: catBalrog,
   },
 ];
 

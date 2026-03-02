@@ -1,3 +1,5 @@
+import figure1 from "@/assets/figures/figure1.png";
+
 const Highlights = () => {
   return (
     <section className="py-16 px-6 bg-[hsl(var(--hero-bg))]">
@@ -16,6 +18,11 @@ const Highlights = () => {
             Our comprehensive study shows that existing memory systems underperform on AMA-Bench primarily because they lack causality and objective information. We propose <strong className="text-foreground">AMA-Agent</strong>, an effective memory system featuring a causality graph and tool-augmented retrieval, achieving <strong className="text-foreground">57.22% average accuracy</strong> — surpassing the strongest baselines by <strong className="text-foreground">11.16%</strong>.
           </p>
         </div>
+        <img
+          src={figure1}
+          alt="Figure 1"
+          className="w-full h-auto object-contain mt-8"
+        />
       </div>
     </section>
   );

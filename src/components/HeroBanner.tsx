@@ -1,10 +1,20 @@
-import { FileText, Github, Play, BookOpen } from "lucide-react";
+import { FileText, Github, Play, Database } from "lucide-react";
+
+const HuggingFaceIcon = () => (
+  <img
+    src="https://huggingface.co/favicon.ico"
+    alt=""
+    width={15}
+    height={15}
+    className="inline-block"
+  />
+);
 
 const links = [
   { label: "Paper", icon: FileText, href: "https://arxiv.org/abs/2602.22769" },
   { label: "Code", icon: Github, href: "#" },
   { label: "Demo", icon: Play, href: "#" },
-  { label: "Docs", icon: BookOpen, href: "#" },
+  { label: "Hugging Face", icon: Database, href: "https://huggingface.co", customIcon: HuggingFaceIcon },
 ];
 
 const HeroBanner = () => {
@@ -18,7 +28,7 @@ const HeroBanner = () => {
         </h1>
 
         <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
-          Agent Memory with Any length — a benchmark featuring real-world agentic trajectories and causality-aware memory systems.
+          Evaluate agent memory itself, not just dialogue.
         </p>
 
         {/* Link Tabs */}
@@ -31,7 +41,7 @@ const HeroBanner = () => {
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-5 py-2 rounded-full border border-border bg-background text-foreground hover:bg-secondary transition-colors text-sm font-medium shadow-sm"
             >
-              <link.icon size={15} />
+              {"customIcon" in link ? <link.customIcon /> : <link.icon size={15} />}
               <span>{link.label}</span>
             </a>
           ))}
