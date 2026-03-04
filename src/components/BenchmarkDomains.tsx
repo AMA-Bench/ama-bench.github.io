@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { useInView } from "@/hooks/useInView";
 import { useCountUp } from "@/hooks/useCountUp";
 import { domainStats, totalStats } from "@/data/results";
+import TrajectoryModal, { type TrajectoryExample } from "@/components/TrajectoryModal";
 
 import catAlfworld from "@/assets/cat-alfworld.jpg";
 import catBalrog from "@/assets/cat-balrog.jpg";
@@ -11,6 +13,8 @@ import catSwebench from "@/assets/cat-swebench.jpg";
 import catGaia from "@/assets/cat-gaia.jpg";
 import catSpider from "@/assets/cat-spider.jpg";
 import datasetDistImg from "@/assets/figures/domain_distribution.png";
+
+import alfworldData from "@/assets/data/task_alfworld_1.json";
 
 const imageMap: Record<string, string> = {
   "cat-spider": catSpider,
@@ -21,10 +25,51 @@ const imageMap: Record<string, string> = {
   "cat-swebench": catSwebench,
 };
 
+const placeholderTrajectory = (domain: string): TrajectoryExample => ({
+  episode_id: "coming_soon",
+  task: `Example ${domain} task — coming soon.`,
+  domain,
+  num_turns: 0,
+  total_tokens: 0,
+  state: "placeholder",
+  trajectory: [
+    { turn_idx: 0, action: "—", observation: "Example trajectory for this domain will be added soon." },
+  ],
+  qa_pairs: [],
+});
+
+const exampleMap: Record<string, TrajectoryExample> = {
+  "Embodied AI": {
+    episode_id: alfworldData.episode_id,
+    task: alfworldData.task,
+    domain: "Embodied AI",
+    num_turns: alfworldData.num_turns,
+    total_tokens: alfworldData.total_tokens,
+    state: alfworldData.state,
+    trajectory: alfworldData.trajectory,
+    qa_pairs: alfworldData.qa_pairs,
+  },
+  "Text 2 SQL": placeholderTrajectory("Text 2 SQL"),
+  "Open World Tool QA": placeholderTrajectory("Open World Tool QA"),
+  "Web Task Execution": placeholderTrajectory("Web Task Execution"),
+  "Gaming": placeholderTrajectory("Gaming"),
+  "Software Engineering": placeholderTrajectory("Software Engineering"),
+};
+
 const BenchmarkDomains = () => {
   const { ref, isVisible } = useInView();
   const samples = useCountUp(totalStats.samples, 1200, isVisible);
   const qaPairs = useCountUp(totalStats.qaPairs, 1200, isVisible);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedExample, setSelectedExample] = useState<TrajectoryExample | null>(null);
+
+  const handleCardClick = (domain: string) => {
+    const example = exampleMap[domain];
+    if (example) {
+      setSelectedExample(example);
+      setModalOpen(true);
+    }
+  };
 
   return (
     <section className="py-16 md:py-24 px-6 bg-[hsl(var(--hero-bg))]" ref={ref}>
@@ -32,9 +77,12 @@ const BenchmarkDomains = () => {
         <p className="font-mono text-sm text-accent-blue mb-2 tracking-wider">
           03 — BENCHMARK
         </p>
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-10">
+        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
           Benchmark Domains
         </h2>
+        <p className="text-sm text-muted-foreground mb-10">
+          Click on any domain card below to view an example trajectory with QA pairs.
+        </p>
 
         {/* Top: sunburst + stats */}
         <div
@@ -77,21 +125,26 @@ const BenchmarkDomains = () => {
           {domainStats.map((d, i) => (
             <div
               key={d.domain}
+              onClick={() => handleCardClick(d.domain)}
               className={cn(
-                "rounded-2xl overflow-hidden bg-card shadow-sm opacity-0 translate-y-8 transition-all duration-700",
+                "rounded-2xl overflow-hidden bg-card shadow-sm cursor-pointer group opacity-0 translate-y-8 transition-all duration-700",
                 isVisible && "opacity-100 translate-y-0"
               )}
               style={{ transitionDelay: `${(i + 1) * 80}ms` }}
             >
-              <img
-                src={imageMap[d.image]}
-                alt={d.domain}
-                className="w-full h-36 object-cover"
-                loading="lazy"
-              />
+              <div className="overflow-hidden">
+                <img
+                  src={imageMap[d.image]}
+                  alt={d.domain}
+                  className="w-full h-36 object-cover group-hover:scale-105 transition-transform duration-300"
+                  loading="lazy"
+                />
+              </div>
               <div className="p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <h3 className="font-semibold text-foreground text-sm">{d.domain}</h3>
+                  <h3 className="font-semibold text-foreground text-sm group-hover:text-accent-blue transition-colors">
+                    {d.domain}
+                  </h3>
                   <Badge variant="outline" className="text-xs">
                     {d.source}
                   </Badge>
@@ -101,11 +154,20 @@ const BenchmarkDomains = () => {
                   <span>{d.qaPairs} QA</span>
                   <span>{d.avgTokens.toLocaleString()} tok</span>
                 </div>
+                <p className="text-xs text-accent-blue mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  Click to view example trajectory
+                </p>
               </div>
             </div>
           ))}
         </div>
       </div>
+
+      <TrajectoryModal
+        example={selectedExample}
+        open={modalOpen}
+        onOpenChange={setModalOpen}
+      />
     </section>
   );
 };
