@@ -1,4 +1,4 @@
-import { FileText, Github, Play, Database } from "lucide-react";
+import { FileText, Github, Trophy, Database } from "lucide-react";
 
 const HuggingFaceIcon = () => (
   <img
@@ -12,8 +12,8 @@ const HuggingFaceIcon = () => (
 
 const links = [
   { label: "Paper", icon: FileText, href: "https://arxiv.org/abs/2602.22769" },
-  { label: "Code", icon: Github, href: "#" },
-  { label: "Demo", icon: Play, href: "#" },
+  { label: "Code", icon: Github, href: "https://github.com/AMA-Bench/AMA-Hub" },
+  { label: "Leaderboard", icon: Trophy, href: "https://huggingface.co/spaces/AMA-bench/AMA-bench-Leaderboard" },
   { label: "Hugging Face", icon: Database, href: "https://huggingface.co/datasets/Pettingllms/AMA-bench", customIcon: HuggingFaceIcon },
 ];
 
